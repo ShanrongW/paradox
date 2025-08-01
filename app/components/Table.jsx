@@ -1,16 +1,22 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
 import { createClient } from "@/lib/supabase/client";
+import { DataTable } from "@/components/ui/DataTable";
+import { columns } from "../charts/columns";
 
 export default async function TableUtils({searchParams}) {
   const supabase = await createClient();
   const { data } = await supabase.from("members").select();
+
+  const completeData = data.map(item => {
+    if (searchParams.type === undefined || searchParams.type === getType(item.class).toLowerCase()) {
+      return {
+        name: item.in_game_name,
+        class: item.class,
+        gains: calculatePowerGains(item.power).toLocaleString(),
+        power: item.power[item.power.length - 1].toLocaleString(),
+        type: getType(item.class)
+      };
+    }
+  }).filter(item => item)
 
   function getType(characterClass) {
     const character = characterClass.toLowerCase()
@@ -36,31 +42,8 @@ export default async function TableUtils({searchParams}) {
   }
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Class</TableHead>
-          <TableHead>Type</TableHead>
-          <TableHead>Power</TableHead>
-          <TableHead>Power Gains</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {data.map((item) => {
-          if (searchParams.type === undefined || searchParams.type === getType(item.class).toLowerCase()) {
-            return (
-              <TableRow key={item.id}>
-                <TableCell>{item.in_game_name}</TableCell>
-                <TableCell>{item.class}</TableCell>
-                <TableCell>{getType(item.class)}</TableCell>
-                <TableCell>{item.power[item.power.length - 1]}</TableCell>
-                <TableCell>{calculatePowerGains(item.power)}</TableCell>
-              </TableRow>
-        )}
-          
-          })}
-      </TableBody>
-    </Table>
+    <div className="container mx-auto py-10">
+      <DataTable columns={columns} data={completeData} />
+    </div>
   )
 }
