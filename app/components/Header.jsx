@@ -2,7 +2,6 @@
 
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 
 export default function Header() {
 
@@ -12,7 +11,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b bg-linear-to-l from-blue-500 to-purple-500">
       <nav className="container px-4 py-3 flex items-center justify-between min-w-screen">
         <div>
-          
+          <Link href="/charts">Charts</Link>
         </div>
         <div className="flex items-center">
           <Link href={"/"}>

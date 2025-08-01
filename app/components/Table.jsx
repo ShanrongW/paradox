@@ -1,42 +1,66 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { createClient } from "@/lib/supabase/client";
 
-export default function Table() {
+export default async function TableUtils({searchParams}) {
+  const supabase = await createClient();
+  const { data } = await supabase.from("members").select();
+
+  function getType(characterClass) {
+    const character = characterClass.toLowerCase()
+    if (character === 'gladiator' || character === 'warrior') {
+      return 'Tank'
+    } else if (character === 'druid' || character === 'shaman') {
+      return 'Healer'
+    } else if (character === 'assassin' || character === 'hunter' || character === 'mage' || character === 'warlock') {
+      return 'DPS'
+    } else {
+      return 'null'
+    }
+  }
+
+  function calculatePowerGains(powerArray) {
+    if (powerArray.length < 2) {
+      return 0
+    } else {
+      const currentPower = powerArray[powerArray.length - 1]
+      const pastPower = powerArray[powerArray.length - 2]
+      return currentPower - pastPower
+    }
+  }
+
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Class</TableHead>
+          <TableHead>Type</TableHead>
+          <TableHead>Power</TableHead>
+          <TableHead>Power Gains</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-          </TableRow>
-        ))}
+        {data.map((item) => {
+          if (searchParams.type === undefined || searchParams.type === getType(item.class).toLowerCase()) {
+            return (
+              <TableRow key={item.id}>
+                <TableCell>{item.in_game_name}</TableCell>
+                <TableCell>{item.class}</TableCell>
+                <TableCell>{getType(item.class)}</TableCell>
+                <TableCell>{item.power[item.power.length - 1]}</TableCell>
+                <TableCell>{calculatePowerGains(item.power)}</TableCell>
+              </TableRow>
+        )}
+          
+          })}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   )
 }
