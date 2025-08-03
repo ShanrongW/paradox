@@ -9,7 +9,7 @@ export default async function Charts({searchParams}) {
   return (
     <main className="flex items-center justify-center flex-col">
       <h1 className="text-lg mt-2 font-bold">Charts</h1>
-      <section className="mt-2 flex items-center justify-self-start min-w-screen ml-8 gap-2 mb-4">
+      <section className="mt-2 flex items-center justify-self-start w-3x1 ml-8 gap-2 mb-4">
         <div>Filters: </div>
         {
           typeArray.map(character => <FilterButton key={character} character={character}/>)

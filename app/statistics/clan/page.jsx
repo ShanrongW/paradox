@@ -1,5 +1,19 @@
+import { createClient } from "@/lib/supabase/client";
 
+export default async function ClanPage() {
 
-export default function ClanPage() {
-  return <h1>Clan stats</h1>
+  const supabase = await createClient();
+    const { data } = await supabase
+      .from("members")
+      .select()
+
+  
+
+  return (
+    <main>
+      <section>
+        <h1></h1>
+      </section>
+    </main>
+  )
 }
