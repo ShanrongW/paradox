@@ -25,7 +25,7 @@ const chartConfig = {
     color: "var(--chart-1)",
   },
   gains: {
-    label: "Power Gains",
+    label: "Gains",
     color: "var(--chart-2)",
   },
 }
@@ -53,22 +53,22 @@ export function ChartLineMultiple({chartData}) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => value}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
               dataKey="power"
               type="monotone"
-              stroke="var(--color-desktop)"
+              stroke="#000000"
               strokeWidth={2}
-              dot={false}
+              dot={true}
             />
             <Line
               dataKey="gains"
               type="monotone"
               stroke="var(--color-mobile)"
               strokeWidth={2}
-              dot={false}
+              dot={true}
             />
           </LineChart>
         </ChartContainer>
@@ -77,10 +77,7 @@ export function ChartLineMultiple({chartData}) {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 leading-none font-medium">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="text-muted-foreground flex items-center gap-2 leading-none">
-              Showing total visitors for the last 6 months
+              Gained {chartData[chartData.length - 1].gains.toLocaleString()} CP this week <TrendingUp className="h-4 w-4" />
             </div>
           </div>
         </div>
