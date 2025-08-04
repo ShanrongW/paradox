@@ -11,6 +11,7 @@ export default async function ClanPage() {
 
   const completeData = data.map(item => {
     return {
+      id: item.id,
       name: item.in_game_name,
       class: item.class,
       gains: calculatePowerGains(item.power),

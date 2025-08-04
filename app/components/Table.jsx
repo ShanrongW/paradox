@@ -14,6 +14,7 @@ export default async function TableUtils({searchParams}) {
   const completeData = data.map(item => {
     if (searchParams.type === undefined || searchParams.type === getType(item.class).toLowerCase()) {
       return {
+        id: item.id,
         name: item.in_game_name,
         class: item.class,
         gains: calculatePowerGains(item.power).toLocaleString(),
