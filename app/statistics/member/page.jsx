@@ -33,7 +33,6 @@ export default async function MemberPage() {
       <div className="flex gap-2 w-full flex-wrap mt-6 justify-center">
         {cards}
       </div>
-      
     </main>
   )
 }

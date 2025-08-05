@@ -1,6 +1,15 @@
 import { createClient } from "@/lib/supabase/client";
 import { getType } from "@/app/utils/getType";
 import { calculatePowerGains } from "@/app/utils/calculatePowerGains";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function ClanPage() {
 
@@ -20,9 +29,6 @@ export default async function ClanPage() {
     }}
   ).filter(item => item)
 
-  /*
-    av
-  */
   function getAverage(type = "All") {
     const filteredData = completeData.filter(item => item.type === type || type === "All")
     let total = 0
@@ -53,42 +59,91 @@ export default async function ClanPage() {
 
   return (
     <main>
-      <section className="mb-10">
-        <h1>Total</h1>
-        <div>Clan: {getTotal()}</div>
-        <div>Tanks: {getTotal("Tank")}</div>
-        <div>DPS: {getTotal("DPS")}</div>
-        <div>Healers: {getTotal("Healer")}</div>
-      </section>
-      <section className="mb-10">
-        <h1>Averages</h1>
-        <div>Clan: {getAverage()}</div>
-        <div>Tanks: {getAverage("Tank")}</div>
-        <div>DPS: {getAverage("DPS")}</div>
-        <div>Healers: {getAverage("Healer")}</div>
-      </section>
-      <section className="mb-10">
-        <h1>Top Three</h1>
-        <div>
-          Clan: {getTopThree().map(item => (
-            <div key={item.id}>{item.name}: {item.gains}</div>
-          ))}
-        </div>
-        <div>
-          Tanks: {getTopThree("Tank").map(item => (
-            <div key={item.id}>{item.name}: {item.gains}</div>
-          ))}
-        </div>
-        <div>
-          DPS: {getTopThree("DPS").map(item => (
-            <div key={item.id}>{item.name}: {item.gains}</div>
-          ))}
-        </div>
-        <div>
-          Healers: {getTopThree("Healer").map(item => (
-            <div key={item.id}>{item.name}: {item.gains}</div>
-          ))}
-        </div>
+      <section className="mt-10 flex gap-10 justify-center flex-wrap">
+        <Card className="w-[375px]">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-1">
+              Clan
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul>
+              <li>Total Gains: {getTotal()}</li>
+              <li>Average Gains: {getAverage()}</li>
+              <li>
+                <ul className="list-disc">
+                  Top Three:
+                  {getTopThree().map(item => (
+                    <li key={item.id} className="ml-5">{item.name}: {item.gains}</li>
+                  ))}
+                </ul>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+        <Card className="w-[375px]">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-1">
+              Tanks
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul>
+              <li>Total Gains: {getTotal("Tank")}</li>
+              <li>Average Gains: {getAverage("Tank")}</li>
+              <li>
+                <ul className="list-disc">
+                  Top Three:
+                  {getTopThree("Tank").map(item => (
+                    <li key={item.id} className="ml-5">{item.name}: {item.gains}</li>
+                  ))}
+                </ul>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+        <Card className="w-[375px]">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-1">
+              DPS
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul>
+              <li>Total Gains: {getTotal("DPS")}</li>
+              <li>Average Gains: {getAverage("DPS")}</li>
+              <li>
+                <ul className="list-disc">
+                  Top Three:
+                  {getTopThree("DPS").map(item => (
+                    <li key={item.id} className="ml-5">{item.name}: {item.gains}</li>
+                  ))}
+                </ul>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+        <Card className="w-[375px]">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-1">
+              Healers
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul>
+              <li>Total Gains: {getTotal("Healer")}</li>
+              <li>Average Gains: {getAverage("Healer")}</li>
+              <li>
+                <ul className="list-disc">
+                  Top Three:
+                  {getTopThree("Healer").map(item => (
+                    <li key={item.id} className="ml-5">{item.name}: {item.gains}</li>
+                  ))}
+                </ul>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
       </section>
     </main>
   )

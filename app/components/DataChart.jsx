@@ -59,14 +59,14 @@ export function ChartLineMultiple({chartData}) {
             <Line
               dataKey="power"
               type="monotone"
-              stroke="#000000"
+              stroke="#C41E3A"
               strokeWidth={2}
               dot={true}
             />
             <Line
               dataKey="gains"
               type="monotone"
-              stroke="var(--color-mobile)"
+              stroke="#0096FF"
               strokeWidth={2}
               dot={true}
             />
