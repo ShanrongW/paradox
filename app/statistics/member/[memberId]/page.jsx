@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 import { ChartLineMultiple } from "@/app/components/DataChart";
 import { getType } from "@/app/utils/getType";
 import {
@@ -66,7 +66,6 @@ export default async function MemberPage({params}) {
       <div className="max-w-[800px] w-full mx-auto mt-5">
         <ChartLineMultiple chartData={chartData} />
       </div>
-      
     </main>
   )
 }

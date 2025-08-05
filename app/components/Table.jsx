@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 import { DataTable } from "@/components/ui/DataTable";
 import { columns } from "../charts/columns";
 import { calculatePowerGains } from "@/app/utils/calculatePowerGains";

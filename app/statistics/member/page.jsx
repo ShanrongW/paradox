@@ -1,5 +1,5 @@
 
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 import { calculatePowerGains } from "@/app/utils/calculatePowerGains";
 import MemberCards from "@/app/components/MemberCards";
 import { getType } from "@/app/utils/getType";

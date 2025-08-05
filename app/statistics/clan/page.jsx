@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 import { getType } from "@/app/utils/getType";
 import { calculatePowerGains } from "@/app/utils/calculatePowerGains";
 import {
@@ -7,9 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default async function ClanPage() {
 
@@ -27,7 +24,7 @@ export default async function ClanPage() {
       power: item.power[item.power.length - 1],
       type: getType(item.class)
     }}
-  ).filter(item => item)
+  )
 
   function getAverage(type = "All") {
     const filteredData = completeData.filter(item => item.type === type || type === "All")
