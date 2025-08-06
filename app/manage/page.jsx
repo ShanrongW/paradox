@@ -100,7 +100,6 @@ export default function ManagePage() {
 
   const onSubmit = async (values) => {
     if (!editMember) return;
-    // Example: update only name
     const updateObj = {
       in_game_name: values.name,
       power: values.power.split(","),

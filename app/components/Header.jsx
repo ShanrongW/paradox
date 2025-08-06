@@ -49,6 +49,9 @@ export default function Header() {
                     <NavigationMenuLink asChild>
                       <Link href={"/manage"}>Dashboard</Link>
                     </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link href={"/manage/edit_charts"}>Edit Chart</Link>
+                    </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               }
@@ -86,6 +89,9 @@ export default function Header() {
                   <NavigationMenuContent>
                     <NavigationMenuLink asChild>
                       <Link href={"/manage"}>Dashboard</Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link href={"/manage/edit_charts"}>Edit Chart</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>

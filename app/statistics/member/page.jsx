@@ -24,7 +24,7 @@ export default async function MemberPage() {
 
   const cards = completeData.map(item => {
     return (
-      <MemberCards item={item} key={item.name}/>
+      <MemberCards item={item} key={item.id}/>
     )
   }).sort((a, b) => b.name - a.name)
 
