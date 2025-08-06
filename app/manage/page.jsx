@@ -33,20 +33,18 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-  DialogClose
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import AddMember from "./AddMember";
 
 export default function ManagePage() {
   const [fullData, setFullData] = useState([]);
@@ -264,6 +262,7 @@ export default function ManagePage() {
     <Protect>
       <main className="flex flex-wrap">
         {cards}
+        <AddMember setFullData={setFullData} key="key"/>
       </main>
     </Protect>
   )
