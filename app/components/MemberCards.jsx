@@ -22,7 +22,12 @@ export default function MemberCards({item}) {
           {item.name}
         </CardTitle>
         <CardDescription>
-          {item.type} • {item.class}
+          <div>
+            {item.type} • {item.class}
+          </div>
+          <div>
+            {item.power.toLocaleString()} CP
+          </div>
         </CardDescription>
         <CardAction>
           <Link href={`/statistics/member/${item.id}`}><Button variant="link">View Statistics</Button></Link>
