@@ -25,12 +25,54 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 
 export default function ManagePage() {
-
   const [fullData, setFullData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [editMember, setEditMember] = useState(null);
+
+  // Controlled form setup
+  const form = useForm({
+    defaultValues: {
+      name: '',
+      discord: '',
+      class: '',
+      power: '',
+    }
+  });
+
+  useEffect(() => {
+    if (open && editMember) {
+      form.reset({
+        name: editMember.name || '',
+        discord: editMember.discord || '',
+        class: editMember.class || '',
+        power: Array.isArray(editMember.power) ? editMember.power.join(',') : (editMember.power || '')
+      });
+    }
+  }, [open, editMember, form]);
 
   useEffect(() => {
     // Fetch data initially
@@ -58,6 +100,37 @@ export default function ManagePage() {
     }
   };
 
+  const onSubmit = async (values) => {
+    if (!editMember) return;
+    // Example: update only name
+    const updateObj = {
+      in_game_name: values.name,
+      power: values.power.split(","),
+      discord: values.discord,
+      class: values.class
+    };
+    // Add other fields as needed
+    const supabase = createClient()
+    supabase
+      .from('members')
+      .update(updateObj)
+      .eq('id', editMember.id)
+      .then(({ error }) => {
+        if (error) {
+          console.error('Error updating record:', error.message);
+        } else {
+          setFullData(prev =>
+            prev.map(item =>
+              item.id === editMember.id
+                ? { ...item, ...updateObj }
+                : item
+            )
+          );
+          setOpen(false);
+        }
+      });
+  }
+
   const completeData = fullData.map(item => {
     return {
       discord: item.discord,
@@ -65,8 +138,8 @@ export default function ManagePage() {
       name: item.in_game_name,
       class: item.class,
       gains: calculatePowerGains(item.power),
-      power: item.power[item.power.length - 1],
-      type: getType(item.class)
+      type: getType(item.class),
+      power: item.power
     }}
   )
 
@@ -83,7 +156,84 @@ export default function ManagePage() {
           <div>Discord: {item.discord}</div>
         </CardDescription>
         <CardAction className="flex flex-col gap-4">
-          <Button variant="secondary" className="cursor-pointer" onClick>Edit</Button>
+
+          <Dialog onOpenChange={o => { setOpen(o); setEditMember(o ? item : null); }} open={open && editMember?.id === item.id}>
+            <DialogTrigger asChild>
+              <Button>Edit</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>
+                  Changes
+                </DialogTitle>
+                <DialogDescription>
+                  Apply changes to this member below. Click save when you are done.
+                </DialogDescription>
+              </DialogHeader>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+                  <fieldset >
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="discord"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Discord</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="class"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Class</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="power"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Power</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <DialogFooter>
+                      <Button className="my-2" type="submit">Save changes</Button>
+                    </DialogFooter>
+                  </fieldset>
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
+
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive" className="cursor-pointer">Delete</Button>
