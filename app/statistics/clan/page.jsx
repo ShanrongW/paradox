@@ -31,14 +31,14 @@ export default async function ClanPage() {
     let total = 0
     filteredData.forEach(item => total += item.gains)
     const average = Math.round(total / filteredData.length)
-    return average ? average : 0
+    return average ? average.toLocaleString() : 0
   }
 
   function getTotal(type = "All") {
     const filteredData = completeData.filter(item => item.type === type || type === "All")
     let total = 0
     filteredData.forEach(item => total += item.gains)
-    return total
+    return total.toLocaleString()
   }
 
   function getTopThree(type = "All") {
@@ -71,7 +71,7 @@ export default async function ClanPage() {
                 <ul className="list-disc">
                   Top Three:
                   {getTopThree().map(item => (
-                    <li key={item.id} className="ml-5">{item.name}: {item.gains}</li>
+                    <li key={item.id} className="ml-5">{item.name}: {item.gains.toLocaleString()}</li>
                   ))}
                 </ul>
               </li>
@@ -92,7 +92,7 @@ export default async function ClanPage() {
                 <ul className="list-disc">
                   Top Three:
                   {getTopThree("Tank").map(item => (
-                    <li key={item.id} className="ml-5">{item.name}: {item.gains}</li>
+                    <li key={item.id} className="ml-5">{item.name}: {item.gains.toLocaleString()}</li>
                   ))}
                 </ul>
               </li>
@@ -113,7 +113,7 @@ export default async function ClanPage() {
                 <ul className="list-disc">
                   Top Three:
                   {getTopThree("DPS").map(item => (
-                    <li key={item.id} className="ml-5">{item.name}: {item.gains}</li>
+                    <li key={item.id} className="ml-5">{item.name}: {item.gains.toLocaleString()}</li>
                   ))}
                 </ul>
               </li>
@@ -134,7 +134,7 @@ export default async function ClanPage() {
                 <ul className="list-disc">
                   Top Three:
                   {getTopThree("Healer").map(item => (
-                    <li key={item.id} className="ml-5">{item.name}: {item.gains}</li>
+                    <li key={item.id} className="ml-5">{item.name}: {item.gains.toLocaleString()}</li>
                   ))}
                 </ul>
               </li>
