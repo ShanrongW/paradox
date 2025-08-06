@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
@@ -57,11 +57,12 @@ export default function AddMember({setFullData}) {
       });
   }
 
-
   return (
     <Dialog onOpenChange={o => { setOpen(o); }} open={open}>
       <DialogTrigger asChild>
-        <Button>+</Button>
+        <Button className="cursor-pointer mt-8 justify-self-center w-50 text-2xl h-15 mb-8">
+          Add Member
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -128,7 +129,7 @@ export default function AddMember({setFullData}) {
                 )}
               />
               <DialogFooter>
-                <Button className="my-2" type="submit">Save changes</Button>
+                <Button className="my-2" type="submit">Add</Button>
               </DialogFooter>
             </fieldset>
           </form>

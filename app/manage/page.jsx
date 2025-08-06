@@ -157,7 +157,7 @@ export default function ManagePage() {
 
           <Dialog onOpenChange={o => { setOpen(o); setEditMember(o ? item : null); }} open={open && editMember?.id === item.id}>
             <DialogTrigger asChild>
-              <Button>Edit</Button>
+              <Button className="cursor-pointer">Edit</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
@@ -260,9 +260,11 @@ export default function ManagePage() {
 
   return (
     <Protect>
-      <main className="flex flex-wrap">
-        {cards}
-        <AddMember setFullData={setFullData} key="key"/>
+      <main className="flex flex-col items-center">
+        <AddMember setFullData={setFullData} key="asdfs"/>
+        <div className="flex flex-wrap gap-6 justify-center">
+          {cards}
+        </div>
       </main>
     </Protect>
   )
