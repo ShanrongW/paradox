@@ -10,6 +10,7 @@ export default async function MemberPage() {
   const { data } = await supabase
     .from("members")
     .select()
+    .order('in_game_name', {ascending: true})
 
   const completeData = data.map(item => {
     return {

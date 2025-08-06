@@ -76,9 +76,9 @@ export default function ManagePage() {
     // Fetch data initially
     async function fetchData() {
       const supabase = await createClient();
-      const { data, error } = await supabase.from('members').select('*');
+      const { data, error } = await supabase.from('members').select('*').order('in_game_name', {ascending: true});
       if (error) console.error('Error fetching data:', error.message);
-      else setFullData(data);
+      else setFullData(data?.slice().sort((a, b) => a.in_game_name.localeCompare(b.in_game_name)));
     }
     fetchData();
   }, []);
@@ -94,7 +94,7 @@ export default function ManagePage() {
       console.error('Error deleting record:', error.message);
     } else {
       // Update the UI after deletion
-      setFullData(prevData => prevData.filter(item => item.id !== recordId));
+      setFullData(prevData => prevData.filter(item => item.id !== recordId).sort((a, b) => a.in_game_name.localeCompare(b.in_game_name)));
     }
   };
 
@@ -112,17 +112,17 @@ export default function ManagePage() {
       .from('members')
       .update(updateObj)
       .eq('id', editMember.id)
-      .then(({ error }) => {
+      .then(async ({ error }) => {
         if (error) {
           console.error('Error updating record:', error.message);
         } else {
-          setFullData(prev =>
-            prev.map(item =>
-              item.id === editMember.id
-                ? { ...item, ...updateObj }
-                : item
-            )
-          );
+          // Refetch data to ensure correct order
+          const { data, error: fetchError } = await supabase.from('members').select('*').order('in_game_name', {ascending: true});
+          if (fetchError) {
+            console.error('Error fetching data:', fetchError.message);
+          } else {
+            setFullData(data?.slice().sort((a, b) => a.in_game_name.localeCompare(b.in_game_name)));
+          }
           setOpen(false);
         }
       });
@@ -260,7 +260,12 @@ export default function ManagePage() {
   return (
     <Protect>
       <main className="flex flex-col items-center">
-        <AddMember setFullData={setFullData} key="asdfs"/>
+        <AddMember setFullData={async (cb) => {
+          const supabase = await createClient();
+          const { data, error } = await supabase.from('members').select('*').order('in_game_name', {ascending: true});
+          if (error) console.error('Error fetching data:', error.message);
+          else setFullData(data?.slice().sort((a, b) => a.in_game_name.localeCompare(b.in_game_name)));
+        }} key="q3"/>
         <div className="flex flex-wrap gap-6 justify-center">
           {cards}
         </div>

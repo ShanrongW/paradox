@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
 
 export default function ClearFilter() {
   const router = useRouter()
@@ -9,5 +10,5 @@ export default function ClearFilter() {
     router.replace("/charts")
   }
 
-  return <button onClick={clearFilter}>Clear</button>
+  return <Button variant="ghost" onClick={clearFilter} className="cursor-pointer">Clear</Button>
 }
