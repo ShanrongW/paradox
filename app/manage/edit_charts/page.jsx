@@ -15,7 +15,7 @@ export default function EditPage() {
     // Fetch data initially
     async function fetchData() {
       const supabase = await createClient();
-      const { data, error } = await supabase.from('members').select('*');
+      const { data, error } = await supabase.from('members').select('*').order('id', {ascending: true});
       if (error) console.error('Error fetching data:', error.message);
       else setData(data);
     }

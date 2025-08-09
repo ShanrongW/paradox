@@ -9,9 +9,8 @@ export default async function TableUtils({searchParams}) {
   const { data } = await supabase
     .from("members")
     .select()
-    .order("power", {ascending: true});
 
-  const completeData = data.map(item => {
+  const completeData = data.sort((a, b) => b.power[b.power.length - 1] - a.power[a.power.length - 1]).map(item => {
     if (searchParams.type === undefined || searchParams.type === getType(item.class).toLowerCase()) {
       return {
         id: item.id,
