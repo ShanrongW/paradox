@@ -40,7 +40,12 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { Input } from "@/components/ui/input"
 
-export default function EditTable({ columns, data }) {
+export default function EditTable({ columns, data: initialData, onRefresh }) {
+  const [data, setData] = React.useState(initialData);
+  React.useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
+
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [open, setOpen] = React.useState(false)
@@ -92,9 +97,25 @@ export default function EditTable({ columns, data }) {
       .from('members')
       .update(updateObj)
       .eq('id', rawData.id);
+    // Update the local data immediately for UI feedback
+    setData(prev =>
+      prev.map(rowObj =>
+        rowObj.id === rawData.id
+          ? { ...rowObj, power: newPowerArr }
+          : rowObj
+      )
+    );
+    if (typeof onRefresh === 'function') {
+      onRefresh(
+        data.map(rowObj =>
+          rowObj.id === rawData.id
+            ? { ...rowObj, power: newPowerArr }
+            : rowObj
+        )
+      );
+    }
     setOpen(false);
     setEditRow(null);
-    // Optionally, trigger a data refresh here
   }
 
   return (

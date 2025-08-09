@@ -34,11 +34,23 @@ export default function EditPage() {
     fetchData();
   }, []);
 
+  // onRefresh handler for EditTable
+  const handleRefresh = async (newData) => {
+    if (Array.isArray(newData)) {
+      setData(newData);
+    } else {
+      // fallback: fetch from supabase
+      const supabase = await createClient();
+      const { data: members } = await supabase.from("members").select("*");
+      setData(members || []);
+    }
+  };
+
   return (
     <Protect>
       <div className="container mx-auto py-10">
         {
-          fullData ? <EditTable columns={columns} data={data} rawData={data}/> : ""
+          fullData ? <EditTable columns={columns} data={data} rawData={data} onRefresh={handleRefresh}/> : ""
         } 
       </div>
     </Protect>
