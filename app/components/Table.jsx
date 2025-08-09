@@ -16,8 +16,8 @@ export default async function TableUtils({searchParams}) {
         id: item.id,
         name: item.in_game_name,
         class: item.class,
-        gains: calculatePowerGains(item.power).toLocaleString(),
-        power: item.power[item.power.length - 1].toLocaleString(),
+        gains: calculatePowerGains(item.power),
+        power: item.power[item.power.length - 1],
         type: getType(item.class)
       };
     }

@@ -50,7 +50,7 @@ export default function Header() {
                       <Link href={"/manage"}>Dashboard</Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href={"/manage/edit_charts"}>Edit Chart</Link>
+                      <Link href={"/manage/editcharts"}>Edit Chart</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -91,7 +91,7 @@ export default function Header() {
                       <Link href={"/manage"}>Dashboard</Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href={"/manage/edit_charts"}>Edit Chart</Link>
+                      <Link href={"/manage/editcharts"}>Edit Chart</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>

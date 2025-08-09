@@ -1,5 +1,6 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
 import Header from '@/app/components/Header'
 import { ClerkProvider } from "@clerk/nextjs";
 const roboto = Roboto({
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
         >
           <Header />
           {children}
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
