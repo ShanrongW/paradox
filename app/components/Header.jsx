@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b bg-gradient-to-l from-white to-gray-50">
       <nav className="container px-4 py-3 flex items-center justify-between min-w-screen">
-        <Link href={"/"}>
+        <Link href={"/"} prefetch={false}>
           <h1 className="text-purple-500 text-xl sm:text-3xl text-shadow-lg/20">Paradox</h1>
         </Link>
         <div className="flex items-center sm:hidden">
@@ -28,16 +28,16 @@ export default function Header() {
                 <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <NavigationMenuLink asChild>
-                    <Link href={"/"}>Home</Link>
+                    <Link href={"/"} prefetch={false}>Home</Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={"/charts"}>Charts</Link>
+                    <Link href={"/charts"} prefetch={false}>Charts</Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={"/statistics/clan"}>Clan Statistics</Link>
+                    <Link href={"/statistics/clan"} prefetch={false}>Clan Statistics</Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={"/statistics/member"}>Member Statistics</Link>
+                    <Link href={"/statistics/member"} prefetch={false}>Member Statistics</Link>
                   </NavigationMenuLink>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -47,10 +47,10 @@ export default function Header() {
                   <NavigationMenuTrigger>Manage</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <NavigationMenuLink asChild>
-                      <Link href={"/manage"}>Dashboard</Link>
+                      <Link href={"/manage"} prefetch={false}>Dashboard</Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href={"/manage/editcharts"}>Edit Chart</Link>
+                      <Link href={"/manage/editcharts"} prefetch={false}>Edit Chart</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -63,22 +63,22 @@ export default function Header() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link href={"/"}>Home</Link>
+                  <Link href={"/"} prefetch={false}>Home</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link href={"/charts"}>Charts</Link>
+                  <Link href={"/charts"} prefetch={false}>Charts</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Statistics</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <NavigationMenuLink asChild>
-                    <Link href={"/statistics/clan"}>Clan</Link>
+                    <Link href={"/statistics/clan"} prefetch={false}>Clan</Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href={"/statistics/member"}>Member</Link>
+                    <Link href={"/statistics/member"} prefetch={false}>Member</Link>
                   </NavigationMenuLink>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -88,10 +88,10 @@ export default function Header() {
                   <NavigationMenuTrigger>Manage</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <NavigationMenuLink asChild>
-                      <Link href={"/manage"}>Dashboard</Link>
+                      <Link href={"/manage"} prefetch={false}>Dashboard</Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href={"/manage/editcharts"}>Edit Chart</Link>
+                      <Link href={"/manage/editcharts"} prefetch={false}>Edit Chart</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>

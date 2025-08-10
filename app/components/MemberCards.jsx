@@ -30,7 +30,7 @@ export default function MemberCards({item}) {
           </div>
         </CardDescription>
         <CardAction>
-          <Link href={`/statistics/member/${item.id}`}><Button variant="link">View Statistics</Button></Link>
+          <Link href={`/statistics/member/${item.id}`}><Button variant="link" prefetch={false}>View Statistics</Button></Link>
         </CardAction>
       </CardHeader>
     </Card>

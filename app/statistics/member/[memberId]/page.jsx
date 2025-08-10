@@ -58,7 +58,7 @@ export default async function MemberPage({params}) {
               {completeData.type} • {completeData.class}
             </CardDescription>
             <CardAction>
-              <Link href={`/statistics/member`}><Button variant="link">Go Back</Button></Link>
+              <Link href={`/statistics/member`} prefetch={false}><Button variant="link">Go Back</Button></Link>
             </CardAction>
           </CardHeader>
         </Card>
